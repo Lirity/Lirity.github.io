@@ -152,6 +152,148 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Java-Exception" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/11/Java-Exception/">Java Exception</a>
+    </h1>
+  
+
+        
+        <a href="/2020/07/11/Java-Exception/" class="archive-article-date">
+  	<time datetime="2020-07-11T15:54:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>/*</p>
+<ul>
+<li>Java 异常处理</li>
+<li>1.异常：程序在运行中发生了不正常的情况</li>
+<li>2.异常信息由JVM打印输出到控制台</li>
+<li>3.★异常在java中以类的形式存在 可以new对象</li>
+<li>4.异常继承结构</li>
+<li>Object -&gt; Throwable(类) -&gt; Error(不可处理!) -&gt; VirtualMachineError -&gt; StackOverFlowError</li>
+<li>↓                 ↓ -&gt; IOError</li>
+<li>↓</li>
+<li>↓-&gt; Exception(可以处理!) -&gt; RuntimeException(运行时异常，可以不处理)</li>
+<li>↓-&gt; Exception(编译时异常，必须处理)</li>
+<li>常见的运行时异常:NullPointerException ClassCastException NumberFormatException(&lt;-IllegalArgumentException)</li>
+<li>常见的编译时异常:Exception的直接子类</li>
+<li></li>
+<li>5.★①编译时异常也是运行阶段发生的!但是编写程序期间必须处理 ②编译时异常发生的概率比较高</li>
+<li>6.异常处理的两种方式 ①throws - 【异常上抛】②try catch - 【异常捕捉】</li>
+<li>7.try中某语句出现异常 该行后面的代码不会执行</li>
+<li>8.finally子句的使用 finally中的代码块一定会执行 常用于完成资源的释放/关闭</li>
+<li>9.退出JVM finally不执行 (System.exit(0);)</li>
+<li>10.重写后的方法抛出的异常不能更多(更宽泛)</li>
+<li></li>
+<li></li>
+<li>*/<br>public class MyException {<br>  public static void main(String[] args) throws SelfException {<pre><code>/*
+System.out.println(100 / 0);         //Exception in thread &quot;main&quot; java.lang.ArithmeticException：/ by zero
+System.out.println(&quot;Hello World!&quot;);  //由于上面异常 此语句不打印输出
+*/
+SelfException e = new SelfException(&quot;自定义异常!&quot;);
+throw e;
+/*
+System.out.println(e.getMessage());
+e.printStackTrace();
+*/</code></pre>  }<br>}</li>
+</ul>
+<p>class ExceptionTest01 {<br>    public static void main(String[] args) {<br>        /<em>try catch</em>/<br>        try {<br>            dosome();<br>        } catch (ClassNotFoundException e) {<br>            e.printStackTrace();<br>        }<br>    }</p>
+<pre><code>public static void dosome() throws ClassNotFoundException {
+    System.out.println(&quot;do something!&quot;);
+}</code></pre><p>}</p>
+<p>class ExceptionTest02 {<br>    public static void main(String[] args) throws ClassNotFoundException {<br>        /<em>throws</em>/<br>        dosome();<br>    }</p>
+<pre><code>public static void dosome() throws ClassNotFoundException {
+    System.out.println(&quot;do something!&quot;);
+}</code></pre><p>}</p>
+<p>/*自定义异常</p>
+<ul>
+<li>第一步：编写一个类继承Exception或RuntimeException</li>
+<li>第二步：提供两个构造方法 ①无参 ②带有String参数</li>
+<li>*/<br>class SelfException extends Exception {<br>  public SelfException() {<pre><code>super();</code></pre>  }<br>  public  SelfException(String s) {<pre><code>super(s);</code></pre>  }<br>}</li>
+</ul>
+<p>/*</p>
+<ul>
+<li>作业：</li>
+<li>编写程序模拟用户注册：</li>
+<li>1.程序开始执行时，提示用户输入”用户名”和”密码”信息</li>
+<li>2.输入信息之后，后台java程序模拟用户注册</li>
+<li>3.注册时用户名要求长度在[6-14]之间，否则异常</li>
+<li></li>
+<li>注意：</li>
+<li>1.完成注册的方法放到一个单独类中</li>
+<li>2.异常类自定义</li>
+<li>*/<br>class Test {<br>  public static void main(String[] args) {<pre><code>UserService userService = new UserService();
+try {
+    userService.register(&quot;jackson&quot;, &quot;123456&quot;);
+} catch (IllegalNameException e) {
+    e.printStackTrace();
+}</code></pre>  }<br>}</li>
+</ul>
+<p>class UserService {<br>    public void register(String username, String password) throws IllegalNameException {<br>        if (username == null || username.length() &lt; 6 || username.length() &gt; 14) {<br>            throw new IllegalNameException(“用户名不合法!”);<br>        }<br>        System.out.println(“注册成功!”);<br>    }<br>}</p>
+<p>class IllegalNameException extends Exception {<br>    public IllegalNameException() {<br>        super();<br>    }<br>    public  IllegalNameException(String s) {<br>        super(s);<br>    }<br>}</p>
+<hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java 异常处理</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/11/Java-Exception/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Java基础知识点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -380,6 +522,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java 异常处理</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

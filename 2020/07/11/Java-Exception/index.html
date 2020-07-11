@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/5 | Hexo</title>
+  <title>Java Exception | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2020/05/index.html">
+  <meta name="description" content="&#x2F;*  Java 异常处理 1.异常：程序在运行中发生了不正常的情况 2.异常信息由JVM打印输出到控制台 3.★异常在java中以类的形式存在 可以new对象 4.异常继承结构 Object -&gt; Throwable(类) -&gt; Error(不可处理!) -&gt; VirtualMachineError -&gt; StackOverFlowError ↓">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java Exception">
+<meta property="og:url" content="http://yoursite.com/2020/07/11/Java-Exception/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="&#x2F;*  Java 异常处理 1.异常：程序在运行中发生了不正常的情况 2.异常信息由JVM打印输出到控制台 3.★异常在java中以类的形式存在 可以new对象 4.异常继承结构 Object -&gt; Throwable(类) -&gt; Error(不可处理!) -&gt; VirtualMachineError -&gt; StackOverFlowError ↓">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-07-11T15:54:17.000Z">
+<meta property="article:modified_time" content="2020-07-11T16:19:38.965Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Java 异常处理">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -150,49 +155,235 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Java-Exception" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/05/10/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2020-05-10T13:13:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-10</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/05/10/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/">Java基础知识点</a>
+    <h1 class="article-title" itemprop="name">
+      Java Exception
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2020/07/11/Java-Exception/" class="archive-article-date">
+  	<time datetime="2020-07-11T15:54:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>/*</p>
+<ul>
+<li>Java 异常处理</li>
+<li>1.异常：程序在运行中发生了不正常的情况</li>
+<li>2.异常信息由JVM打印输出到控制台</li>
+<li>3.★异常在java中以类的形式存在 可以new对象</li>
+<li>4.异常继承结构</li>
+<li>Object -&gt; Throwable(类) -&gt; Error(不可处理!) -&gt; VirtualMachineError -&gt; StackOverFlowError</li>
+<li>↓                 ↓ -&gt; IOError</li>
+<li>↓</li>
+<li>↓-&gt; Exception(可以处理!) -&gt; RuntimeException(运行时异常，可以不处理)</li>
+<li>↓-&gt; Exception(编译时异常，必须处理)</li>
+<li>常见的运行时异常:NullPointerException ClassCastException NumberFormatException(&lt;-IllegalArgumentException)</li>
+<li>常见的编译时异常:Exception的直接子类</li>
+<li></li>
+<li>5.★①编译时异常也是运行阶段发生的!但是编写程序期间必须处理 ②编译时异常发生的概率比较高</li>
+<li>6.异常处理的两种方式 ①throws - 【异常上抛】②try catch - 【异常捕捉】</li>
+<li>7.try中某语句出现异常 该行后面的代码不会执行</li>
+<li>8.finally子句的使用 finally中的代码块一定会执行 常用于完成资源的释放/关闭</li>
+<li>9.退出JVM finally不执行 (System.exit(0);)</li>
+<li>10.重写后的方法抛出的异常不能更多(更宽泛)</li>
+<li></li>
+<li></li>
+<li>*/<br>public class MyException {<br>  public static void main(String[] args) throws SelfException {<pre><code>/*
+System.out.println(100 / 0);         //Exception in thread &quot;main&quot; java.lang.ArithmeticException：/ by zero
+System.out.println(&quot;Hello World!&quot;);  //由于上面异常 此语句不打印输出
+*/
+SelfException e = new SelfException(&quot;自定义异常!&quot;);
+throw e;
+/*
+System.out.println(e.getMessage());
+e.printStackTrace();
+*/</code></pre>  }<br>}</li>
+</ul>
+<p>class ExceptionTest01 {<br>    public static void main(String[] args) {<br>        /<em>try catch</em>/<br>        try {<br>            dosome();<br>        } catch (ClassNotFoundException e) {<br>            e.printStackTrace();<br>        }<br>    }</p>
+<pre><code>public static void dosome() throws ClassNotFoundException {
+    System.out.println(&quot;do something!&quot;);
+}</code></pre><p>}</p>
+<p>class ExceptionTest02 {<br>    public static void main(String[] args) throws ClassNotFoundException {<br>        /<em>throws</em>/<br>        dosome();<br>    }</p>
+<pre><code>public static void dosome() throws ClassNotFoundException {
+    System.out.println(&quot;do something!&quot;);
+}</code></pre><p>}</p>
+<p>/*自定义异常</p>
+<ul>
+<li>第一步：编写一个类继承Exception或RuntimeException</li>
+<li>第二步：提供两个构造方法 ①无参 ②带有String参数</li>
+<li>*/<br>class SelfException extends Exception {<br>  public SelfException() {<pre><code>super();</code></pre>  }<br>  public  SelfException(String s) {<pre><code>super(s);</code></pre>  }<br>}</li>
+</ul>
+<p>/*</p>
+<ul>
+<li>作业：</li>
+<li>编写程序模拟用户注册：</li>
+<li>1.程序开始执行时，提示用户输入”用户名”和”密码”信息</li>
+<li>2.输入信息之后，后台java程序模拟用户注册</li>
+<li>3.注册时用户名要求长度在[6-14]之间，否则异常</li>
+<li></li>
+<li>注意：</li>
+<li>1.完成注册的方法放到一个单独类中</li>
+<li>2.异常类自定义</li>
+<li>*/<br>class Test {<br>  public static void main(String[] args) {<pre><code>UserService userService = new UserService();
+try {
+    userService.register(&quot;jackson&quot;, &quot;123456&quot;);
+} catch (IllegalNameException e) {
+    e.printStackTrace();
+}</code></pre>  }<br>}</li>
+</ul>
+<p>class UserService {<br>    public void register(String username, String password) throws IllegalNameException {<br>        if (username == null || username.length() &lt; 6 || username.length() &gt; 14) {<br>            throw new IllegalNameException(“用户名不合法!”);<br>        }<br>        System.out.println(“注册成功!”);<br>    }<br>}</p>
+<p>class IllegalNameException extends Exception {<br>    public IllegalNameException() {<br>        super();<br>    }<br>    public  IllegalNameException(String s) {<br>        super(s);<br>    }<br>}</p>
+<hr>
 
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java 异常处理</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/07/11/Java-Exception/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/05/10/Java%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E7%82%B9/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java基础知识点</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -215,8 +406,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
